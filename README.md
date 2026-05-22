@@ -1,25 +1,29 @@
-# projeto-ia-cancer
-# 🧠 Projeto de IA para Diagnóstico de Câncer de Mama
+# 🧠 Projeto de Inteligência Artificial para Diagnóstico de Câncer de Mama
 
-Este projeto utiliza Inteligência Artificial e Redes Neurais Artificiais para realizar a classificação de câncer de mama utilizando o dataset Breast Cancer Wisconsin da biblioteca Scikit-learn.
+Projeto desenvolvido em Python utilizando Inteligência Artificial, Redes Neurais Artificiais, Algoritmo Genético e Busca em Grafos para classificação de câncer de mama utilizando o dataset Breast Cancer Wisconsin.
 
-O sistema foi desenvolvido em Python e simula um processo de análise médica utilizando Machine Learning para identificar tumores benignos e malignos a partir de características numéricas extraídas de exames.
+O sistema foi dividido em dois trabalhos principais:
+
+- 📁 Trabalho N1 → implementação da Rede Neural MLP
+- 📁 Trabalho Final → implementação avançada utilizando:
+  - Algoritmo Genético (AG)
+  - Busca em Largura (BFS)
+  - Busca em Profundidade (DFS)
+  - Otimização automática da Rede Neural
 
 ---
 
 # 📚 Objetivo do Projeto
 
-O objetivo deste projeto é demonstrar na prática conceitos de:
+O objetivo do projeto é aplicar conceitos de Inteligência Artificial e Estruturas Inteligentes para resolver problemas de classificação médica utilizando Machine Learning.
 
-- Inteligência Artificial
-- Machine Learning
-- Redes Neurais Artificiais
-- Pré-processamento de dados
-- Normalização
-- Avaliação de modelos
-- Predição de diagnósticos
+O sistema simula um ambiente de análise médica capaz de:
 
-Além disso, o projeto simula um fluxo semelhante ao utilizado em sistemas reais de auxílio ao diagnóstico médico.
+- Treinar uma Rede Neural Artificial
+- Avaliar diagnósticos
+- Otimizar hiperparâmetros automaticamente
+- Utilizar técnicas de busca em grafos
+- Simular extração de características de imagens médicas
 
 ---
 
@@ -36,102 +40,115 @@ Além disso, o projeto simula um fluxo semelhante ao utilizado em sistemas reais
 
 ---
 
-# 🧩 Estrutura do Projeto
+# 🗂️ Organização do Projeto
 
 ```bash
-projeto-ia-cancer/
+PROJETO-IA-CANCER/
 │
-├── carregamentoDeDados.py
-├── modelo.py
-├── avaliacao.py
-├── extratorDeFeatures.py
-├── previsao.py
-├── requirements.txt
-├── README.md
-├── mlp_cancer_mama.pkl
-└── normalizador_cancer_mama.pkl
+├── TrabalhoFinal/
+│   └── BFS_DFS_AG.py
+│
+├── TrabalhoN1/
+│   ├── avaliacao.py
+│   ├── carregamentoDeDados.py
+│   ├── extratorDeFeatures.py
+│   ├── inferencia.py
+│   └── modelo.py
+│
+├── venv/
+├── mlp_melhor_ag.pkl
+├── normalizador_cancer_mama.pkl
+└── README.md
 ```
 
 ---
 
-# 🔍 Funcionamento do Projeto
+# 🧩 Trabalho N1 — Rede Neural MLP
 
-## 1️⃣ Carregamento e Pré-processamento dos Dados
+A pasta `TrabalhoN1` contém a implementação base do sistema utilizando uma Rede Neural Artificial do tipo MLP (Multilayer Perceptron).
 
-O arquivo `carregamentoDeDados.py` é responsável por:
+---
+
+# 📥 carregamentoDeDados.py
+
+Responsável por:
 
 - Carregar o dataset Breast Cancer Wisconsin
-- Separar os dados entre treino e teste
-- Normalizar os dados usando `StandardScaler`
-- Salvar o normalizador em um arquivo `.pkl`
+- Dividir os dados entre treino e teste
+- Normalizar os dados utilizando `StandardScaler`
+- Salvar o normalizador
 
-A separação dos dados utiliza:
-- 80% para treino
-- 20% para teste
+## Processo realizado:
 
-O modelo nunca vê os dados de teste durante o treinamento, garantindo uma avaliação mais confiável.
+- 80% dos dados → treino
+- 20% dos dados → teste
+
+A normalização garante que todas as variáveis tenham a mesma escala, melhorando o desempenho da rede neural.
 
 ---
 
-## 2️⃣ Construção e Treinamento da Rede Neural
+# 🧠 modelo.py
 
-O arquivo `modelo.py` cria e treina a rede neural utilizando o `MLPClassifier`.
+Responsável pela criação e treinamento da Rede Neural Artificial.
 
-### Configurações da Rede Neural
+## Configuração da Rede Neural
 
+- MLPClassifier
 - 1 camada oculta
 - 100 neurônios
-- Função de ativação ReLU
-- Otimizador Adam
+- Função ReLU
+- Solver Adam
 - 300 épocas máximas
 
-Durante o treinamento, a rede neural aprende padrões capazes de diferenciar tumores benignos e malignos.
+O modelo aprende padrões capazes de diferenciar tumores benignos e malignos.
 
 Após o treinamento:
-- O modelo é salvo em `mlp_cancer_mama.pkl`
+- O modelo é salvo em:
+  
+```bash
+mlp_cancer_mama.pkl
+```
 
 ---
 
-# 🧪 Avaliação do Modelo
+# 📊 avaliacao.py
 
-O arquivo `avaliacao.py` realiza o controle de qualidade do modelo.
+Responsável pela avaliação do modelo treinado.
 
-Ele gera:
+O sistema calcula:
 
 - Acurácia
 - Precision
 - Recall
 - F1-Score
 - Matriz de Confusão
-- Curva de perda (Loss Curve)
+- Curva de perda da rede neural
 
 A matriz de confusão mostra:
-- Quantos diagnósticos foram corretos
-- Quantos erros ocorreram
+- Acertos do modelo
+- Erros do modelo
 
-A curva de perda mostra como a rede neural aprendeu ao longo do treinamento.
+A curva de perda mostra o aprendizado da rede durante o treinamento.
 
 ---
 
-# 🖼️ Simulação de Extração de Features
+# 🖼️ extratorDeFeatures.py
 
-O arquivo `extratorDeFeatures.py` simula o processamento de imagens médicas.
+Simula a extração de características de imagens médicas.
 
-Como imagens reais não estão sendo utilizadas, o sistema:
-- Seleciona uma amostra aleatória do dataset
+Como o projeto não utiliza imagens reais:
+- O sistema seleciona amostras aleatórias do dataset
 - Simula a extração das 30 features numéricas
-- Retorna os dados para previsão
 
 Essa etapa representa um sistema real de visão computacional.
 
 ---
 
-# 🩺 Sistema de Predição
+# 🩺 inferencia.py
 
-O arquivo `previsao.py` realiza previsões utilizando o modelo treinado.
+Responsável pelas previsões finais.
 
 O sistema:
-
 1. Carrega o modelo treinado
 2. Carrega o normalizador
 3. Recebe as features extraídas
@@ -139,8 +156,8 @@ O sistema:
 5. Realiza a previsão
 6. Exibe:
    - Diagnóstico final
-   - Probabilidade
-   - Confiança do modelo
+   - Confiança da IA
+   - Probabilidades
 
 Exemplo:
 
@@ -151,15 +168,164 @@ Confiança do Modelo: 98.75%
 
 ---
 
-# 📊 Dataset Utilizado
+# 🚀 Trabalho Final — Algoritmo Genético + BFS + DFS
 
-O projeto utiliza o dataset:
+A pasta `TrabalhoFinal` contém a versão avançada do projeto.
+
+Arquivo principal:
+
+```bash
+BFS_DFS_AG.py
+```
+
+Esse algoritmo implementa:
+
+- Rede Neural Artificial (MLP)
+- Algoritmo Genético
+- Busca em Largura (BFS)
+- Busca em Profundidade (DFS)
+
+---
+
+# 🧬 Algoritmo Genético (AG)
+
+O Algoritmo Genético é utilizado para otimizar automaticamente os hiperparâmetros da Rede Neural.
+
+O sistema testa diferentes combinações de:
+
+- Número de neurônios
+- Função de ativação
+- Taxa de aprendizado
+
+---
+
+# 🔄 Funcionamento do AG
+
+O algoritmo realiza:
+
+## 1️⃣ Geração da população inicial
+
+Cada indivíduo representa uma configuração diferente da rede neural.
+
+Exemplo:
+
+```python
+{
+    "hidden_layer_sizes": (100,),
+    "activation": "relu",
+    "learning_rate_init": 0.001
+}
+```
+
+---
+
+## 2️⃣ Avaliação (Fitness)
+
+Cada indivíduo é treinado e avaliado utilizando:
+
+- Cross Validation
+- Accuracy
+
+O fitness representa a qualidade do indivíduo.
+
+---
+
+## 3️⃣ Seleção por Torneio
+
+Os melhores indivíduos possuem maior chance de reprodução.
+
+---
+
+## 4️⃣ Crossover
+
+Combina características de dois indivíduos.
+
+---
+
+## 5️⃣ Mutação
+
+Altera parâmetros aleatoriamente para gerar diversidade genética.
+
+---
+
+## 6️⃣ Elitismo
+
+Os melhores indivíduos são preservados entre gerações.
+
+---
+
+# 🌐 Busca em Grafos — BFS e DFS
+
+O projeto também implementa:
+
+## BFS — Breadth First Search
+
+Busca em largura.
+
+Explora os nós vizinhos primeiro.
+
+---
+
+## DFS — Depth First Search
+
+Busca em profundidade.
+
+Explora caminhos mais profundos antes de retornar.
+
+---
+
+# 🔗 Grafo de Correlação
+
+O sistema cria um grafo baseado na correlação entre as variáveis do dataset.
+
+Se duas variáveis possuem correlação maior que:
+
+```python
+0.75
+```
+
+Elas são conectadas no grafo.
+
+---
+
+# 📊 Avaliação Final
+
+Após o Algoritmo Genético encontrar os melhores hiperparâmetros:
+
+- O melhor modelo é treinado
+- O modelo é salvo
+- O sistema avalia no conjunto de teste final
+
+O sistema imprime:
+
+- Accuracy
+- Classification Report
+- Matriz de Confusão
+
+---
+
+# 📦 Arquivos Gerados
+
+## Modelo treinado:
+
+```bash
+mlp_melhor_ag.pkl
+```
+
+## Normalizador:
+
+```bash
+normalizador_cancer_mama.pkl
+```
+
+---
+
+# 📊 Dataset Utilizado
 
 ## Breast Cancer Wisconsin Dataset
 
-Disponível através da biblioteca Scikit-learn.
+Dataset disponível na biblioteca Scikit-learn contendo:
 
-O dataset contém:
 - 569 amostras
 - 30 características numéricas
 - Classificação:
@@ -168,7 +334,7 @@ O dataset contém:
 
 ---
 
-# 🚀 Como Executar o Projeto
+# ▶️ Como Executar
 
 ## 1️⃣ Clone o repositório
 
@@ -178,7 +344,7 @@ git clone https://github.com/seuusuario/projeto-ia-cancer.git
 
 ---
 
-## 2️⃣ Entre na pasta do projeto
+## 2️⃣ Entre na pasta
 
 ```bash
 cd projeto-ia-cancer
@@ -194,85 +360,75 @@ pip install -r requirements.txt
 
 ---
 
-## 4️⃣ Execute o carregamento dos dados
+# ▶️ Executar Trabalho N1
+
+## Carregar dados
 
 ```bash
-python carregamentoDeDados.py
+python TrabalhoN1/carregamentoDeDados.py
+```
+
+## Treinar rede neural
+
+```bash
+python TrabalhoN1/modelo.py
+```
+
+## Avaliar modelo
+
+```bash
+python TrabalhoN1/avaliacao.py
+```
+
+## Executar inferência
+
+```bash
+python TrabalhoN1/inferencia.py
 ```
 
 ---
 
-## 5️⃣ Treine o modelo
+# ▶️ Executar Trabalho Final
 
 ```bash
-python modelo.py
-```
-
----
-
-## 6️⃣ Avalie o modelo
-
-```bash
-python avaliacao.py
-```
-
----
-
-## 7️⃣ Execute previsões
-
-```bash
-python previsao.py
-```
-
----
-
-# 📦 Dependências
-
-Exemplo do arquivo `requirements.txt`:
-
-```txt
-pandas
-numpy
-scikit-learn
-matplotlib
-seaborn
-opencv-python
-joblib
+python TrabalhoFinal/BFS_DFS_AG.py
 ```
 
 ---
 
 # 🧠 Conceitos Aplicados
 
-Este projeto aplica conceitos importantes de:
+O projeto utiliza conceitos de:
 
+- Inteligência Artificial
 - Machine Learning
 - Redes Neurais Artificiais
+- Algoritmos Genéticos
+- Busca em Grafos
+- BFS
+- DFS
+- Cross Validation
 - Classificação Supervisionada
 - Pré-processamento de Dados
-- Normalização
-- Avaliação de Modelos
-- Inteligência Artificial aplicada à saúde
 
 ---
 
 # 🔮 Melhorias Futuras
 
-Possíveis melhorias para o projeto:
+Possíveis melhorias:
 
 - Interface gráfica
 - API REST
 - Upload real de imagens médicas
-- Integração com banco de dados
-- Dashboard web
-- TensorFlow/Keras
 - Deep Learning com CNN
+- Dashboard Web
+- TensorFlow/Keras
 - Deploy em nuvem
 
 ---
 
 # 👨‍💻 Autor
 
-Projeto desenvolvido por Rafael Alvarenga utilizando Python e técnicas de Inteligência Artificial para fins acadêmicos e educacionais.
+Projeto desenvolvido por Rafael Alvarenga para fins acadêmicos utilizando técnicas de Inteligência Artificial e Machine Learning aplicadas à área da saúde.
 
 ---
